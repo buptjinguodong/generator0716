@@ -47,11 +47,8 @@
 		<!--<table tableName="PARAM_DIR"></table>-->
 		<!--<table tableName="PARAM_DETAIL"></table>-->
 
-		<table tableName="USER"></table>
-		<table tableName="ACTI_INFO"></table>
-		<table tableName="ACTI_DETAIL"></table>
-		<table tableName="ACTI_APLY_INFO"></table>
-		<table tableName="ACTI_APLY_DETAIL"></table>
+		<table tableName="weather_daily"></table>
+		<table tableName="weather_location"></table>
 
 
 		<!-- 有些表的字段需要指定java类型
