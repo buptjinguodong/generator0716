@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.demo.dao.ActiDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.imooc.demo.pojo.ActiDetail" >
+    <id column="ACTI_ID" property="actiId" jdbcType="CHAR" />
+    <result column="ACTI_BASEINFO" property="actiBaseinfo" jdbcType="VARCHAR" />
+    <result column="ACTI_PREPARE" property="actiPrepare" jdbcType="VARCHAR" />
+    <result column="ACTI_PRICE_DETAIL" property="actiPriceDetail" jdbcType="VARCHAR" />
+    <result column="ACTI_APLY_DETAIL" property="actiAplyDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ACTI_ID, ACTI_BASEINFO, ACTI_PREPARE, ACTI_PRICE_DETAIL, ACTI_APLY_DETAIL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imooc.demo.pojo.ActiDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ACTI_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACTI_DETAIL
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ACTI_DETAIL
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imooc.demo.pojo.ActiDetailExample" >
+    delete from ACTI_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imooc.demo.pojo.ActiDetail" >
+    insert into ACTI_DETAIL (ACTI_ID, ACTI_BASEINFO, ACTI_PREPARE, 
+      ACTI_PRICE_DETAIL, ACTI_APLY_DETAIL)
+    values (#{actiId,jdbcType=CHAR}, #{actiBaseinfo,jdbcType=VARCHAR}, #{actiPrepare,jdbcType=VARCHAR}, 
+      #{actiPriceDetail,jdbcType=VARCHAR}, #{actiAplyDetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imooc.demo.pojo.ActiDetail" >
+    insert into ACTI_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actiId != null" >
+        ACTI_ID,
+      </if>
+      <if test="actiBaseinfo != null" >
+        ACTI_BASEINFO,
+      </if>
+      <if test="actiPrepare != null" >
+        ACTI_PREPARE,
+      </if>
+      <if test="actiPriceDetail != null" >
+        ACTI_PRICE_DETAIL,
+      </if>
+      <if test="actiAplyDetail != null" >
+        ACTI_APLY_DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actiId != null" >
+        #{actiId,jdbcType=CHAR},
+      </if>
+      <if test="actiBaseinfo != null" >
+        #{actiBaseinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="actiPrepare != null" >
+        #{actiPrepare,jdbcType=VARCHAR},
+      </if>
+      <if test="actiPriceDetail != null" >
+        #{actiPriceDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="actiAplyDetail != null" >
+        #{actiAplyDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imooc.demo.pojo.ActiDetailExample" resultType="java.lang.Integer" >
+    select count(*) from ACTI_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ACTI_DETAIL
+    <set >
+      <if test="record.actiId != null" >
+        ACTI_ID = #{record.actiId,jdbcType=CHAR},
+      </if>
+      <if test="record.actiBaseinfo != null" >
+        ACTI_BASEINFO = #{record.actiBaseinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiPrepare != null" >
+        ACTI_PREPARE = #{record.actiPrepare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiPriceDetail != null" >
+        ACTI_PRICE_DETAIL = #{record.actiPriceDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiAplyDetail != null" >
+        ACTI_APLY_DETAIL = #{record.actiAplyDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ACTI_DETAIL
+    set ACTI_ID = #{record.actiId,jdbcType=CHAR},
+      ACTI_BASEINFO = #{record.actiBaseinfo,jdbcType=VARCHAR},
+      ACTI_PREPARE = #{record.actiPrepare,jdbcType=VARCHAR},
+      ACTI_PRICE_DETAIL = #{record.actiPriceDetail,jdbcType=VARCHAR},
+      ACTI_APLY_DETAIL = #{record.actiAplyDetail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imooc.demo.pojo.ActiDetail" >
+    update ACTI_DETAIL
+    <set >
+      <if test="actiBaseinfo != null" >
+        ACTI_BASEINFO = #{actiBaseinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="actiPrepare != null" >
+        ACTI_PREPARE = #{actiPrepare,jdbcType=VARCHAR},
+      </if>
+      <if test="actiPriceDetail != null" >
+        ACTI_PRICE_DETAIL = #{actiPriceDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="actiAplyDetail != null" >
+        ACTI_APLY_DETAIL = #{actiAplyDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imooc.demo.pojo.ActiDetail" >
+    update ACTI_DETAIL
+    set ACTI_BASEINFO = #{actiBaseinfo,jdbcType=VARCHAR},
+      ACTI_PREPARE = #{actiPrepare,jdbcType=VARCHAR},
+      ACTI_PRICE_DETAIL = #{actiPriceDetail,jdbcType=VARCHAR},
+      ACTI_APLY_DETAIL = #{actiAplyDetail,jdbcType=VARCHAR}
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </update>
+</mapper>

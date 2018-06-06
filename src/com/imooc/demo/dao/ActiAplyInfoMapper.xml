@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.demo.dao.ActiAplyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.imooc.demo.pojo.ActiAplyInfo" >
+    <id column="APLY_ID" property="aplyId" jdbcType="CHAR" />
+    <result column="ACTI_ID" property="actiId" jdbcType="CHAR" />
+    <result column="USER_ID" property="userId" jdbcType="CHAR" />
+    <result column="APLY_USER_AMOUNT" property="aplyUserAmount" jdbcType="INTEGER" />
+    <result column="APLY_TIME" property="aplyTime" jdbcType="TIMESTAMP" />
+    <result column="APLY_PRICE_TOTAL" property="aplyPriceTotal" jdbcType="INTEGER" />
+    <result column="APLY_PRICE_PRE" property="aplyPricePre" jdbcType="INTEGER" />
+    <result column="APLY_REPORT_IND" property="aplyReportInd" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APLY_ID, ACTI_ID, USER_ID, APLY_USER_AMOUNT, APLY_TIME, APLY_PRICE_TOTAL, APLY_PRICE_PRE, 
+    APLY_REPORT_IND
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imooc.demo.pojo.ActiAplyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ACTI_APLY_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACTI_APLY_INFO
+    where APLY_ID = #{aplyId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ACTI_APLY_INFO
+    where APLY_ID = #{aplyId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imooc.demo.pojo.ActiAplyInfoExample" >
+    delete from ACTI_APLY_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imooc.demo.pojo.ActiAplyInfo" >
+    insert into ACTI_APLY_INFO (APLY_ID, ACTI_ID, USER_ID, 
+      APLY_USER_AMOUNT, APLY_TIME, APLY_PRICE_TOTAL, 
+      APLY_PRICE_PRE, APLY_REPORT_IND)
+    values (#{aplyId,jdbcType=CHAR}, #{actiId,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, 
+      #{aplyUserAmount,jdbcType=INTEGER}, #{aplyTime,jdbcType=TIMESTAMP}, #{aplyPriceTotal,jdbcType=INTEGER}, 
+      #{aplyPricePre,jdbcType=INTEGER}, #{aplyReportInd,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imooc.demo.pojo.ActiAplyInfo" >
+    insert into ACTI_APLY_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aplyId != null" >
+        APLY_ID,
+      </if>
+      <if test="actiId != null" >
+        ACTI_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="aplyUserAmount != null" >
+        APLY_USER_AMOUNT,
+      </if>
+      <if test="aplyTime != null" >
+        APLY_TIME,
+      </if>
+      <if test="aplyPriceTotal != null" >
+        APLY_PRICE_TOTAL,
+      </if>
+      <if test="aplyPricePre != null" >
+        APLY_PRICE_PRE,
+      </if>
+      <if test="aplyReportInd != null" >
+        APLY_REPORT_IND,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aplyId != null" >
+        #{aplyId,jdbcType=CHAR},
+      </if>
+      <if test="actiId != null" >
+        #{actiId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="aplyUserAmount != null" >
+        #{aplyUserAmount,jdbcType=INTEGER},
+      </if>
+      <if test="aplyTime != null" >
+        #{aplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aplyPriceTotal != null" >
+        #{aplyPriceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="aplyPricePre != null" >
+        #{aplyPricePre,jdbcType=INTEGER},
+      </if>
+      <if test="aplyReportInd != null" >
+        #{aplyReportInd,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imooc.demo.pojo.ActiAplyInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ACTI_APLY_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ACTI_APLY_INFO
+    <set >
+      <if test="record.aplyId != null" >
+        APLY_ID = #{record.aplyId,jdbcType=CHAR},
+      </if>
+      <if test="record.actiId != null" >
+        ACTI_ID = #{record.actiId,jdbcType=CHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=CHAR},
+      </if>
+      <if test="record.aplyUserAmount != null" >
+        APLY_USER_AMOUNT = #{record.aplyUserAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.aplyTime != null" >
+        APLY_TIME = #{record.aplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aplyPriceTotal != null" >
+        APLY_PRICE_TOTAL = #{record.aplyPriceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.aplyPricePre != null" >
+        APLY_PRICE_PRE = #{record.aplyPricePre,jdbcType=INTEGER},
+      </if>
+      <if test="record.aplyReportInd != null" >
+        APLY_REPORT_IND = #{record.aplyReportInd,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ACTI_APLY_INFO
+    set APLY_ID = #{record.aplyId,jdbcType=CHAR},
+      ACTI_ID = #{record.actiId,jdbcType=CHAR},
+      USER_ID = #{record.userId,jdbcType=CHAR},
+      APLY_USER_AMOUNT = #{record.aplyUserAmount,jdbcType=INTEGER},
+      APLY_TIME = #{record.aplyTime,jdbcType=TIMESTAMP},
+      APLY_PRICE_TOTAL = #{record.aplyPriceTotal,jdbcType=INTEGER},
+      APLY_PRICE_PRE = #{record.aplyPricePre,jdbcType=INTEGER},
+      APLY_REPORT_IND = #{record.aplyReportInd,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imooc.demo.pojo.ActiAplyInfo" >
+    update ACTI_APLY_INFO
+    <set >
+      <if test="actiId != null" >
+        ACTI_ID = #{actiId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="aplyUserAmount != null" >
+        APLY_USER_AMOUNT = #{aplyUserAmount,jdbcType=INTEGER},
+      </if>
+      <if test="aplyTime != null" >
+        APLY_TIME = #{aplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aplyPriceTotal != null" >
+        APLY_PRICE_TOTAL = #{aplyPriceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="aplyPricePre != null" >
+        APLY_PRICE_PRE = #{aplyPricePre,jdbcType=INTEGER},
+      </if>
+      <if test="aplyReportInd != null" >
+        APLY_REPORT_IND = #{aplyReportInd,jdbcType=CHAR},
+      </if>
+    </set>
+    where APLY_ID = #{aplyId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imooc.demo.pojo.ActiAplyInfo" >
+    update ACTI_APLY_INFO
+    set ACTI_ID = #{actiId,jdbcType=CHAR},
+      USER_ID = #{userId,jdbcType=CHAR},
+      APLY_USER_AMOUNT = #{aplyUserAmount,jdbcType=INTEGER},
+      APLY_TIME = #{aplyTime,jdbcType=TIMESTAMP},
+      APLY_PRICE_TOTAL = #{aplyPriceTotal,jdbcType=INTEGER},
+      APLY_PRICE_PRE = #{aplyPricePre,jdbcType=INTEGER},
+      APLY_REPORT_IND = #{aplyReportInd,jdbcType=CHAR}
+    where APLY_ID = #{aplyId,jdbcType=CHAR}
+  </update>
+</mapper>

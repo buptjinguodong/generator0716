@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.demo.dao.ActiInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.imooc.demo.pojo.ActiInfo" >
+    <id column="ACTI_ID" property="actiId" jdbcType="CHAR" />
+    <result column="ACTI_TITLE" property="actiTitle" jdbcType="VARCHAR" />
+    <result column="ACTI_ADDR" property="actiAddr" jdbcType="VARCHAR" />
+    <result column="ACTI_START_DATE" property="actiStartDate" jdbcType="CHAR" />
+    <result column="ACTI_END_DATE" property="actiEndDate" jdbcType="CHAR" />
+    <result column="ACTI_PRICE_TOTAL" property="actiPriceTotal" jdbcType="INTEGER" />
+    <result column="ACTI_PRICE_PRE" property="actiPricePre" jdbcType="INTEGER" />
+    <result column="ACTI_CREATOR" property="actiCreator" jdbcType="VARCHAR" />
+    <result column="ACTI_CREATOR_ID" property="actiCreatorId" jdbcType="CHAR" />
+    <result column="ACTI_CAPACITY" property="actiCapacity" jdbcType="INTEGER" />
+    <result column="ACTI_APLY_TIME" property="actiAplyTime" jdbcType="TIMESTAMP" />
+    <result column="ACTI_STATUS_CD" property="actiStatusCd" jdbcType="CHAR" />
+    <result column="ACTI_ABS" property="actiAbs" jdbcType="VARCHAR" />
+    <result column="ACTI_IMGS" property="actiImgs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ACTI_ID, ACTI_TITLE, ACTI_ADDR, ACTI_START_DATE, ACTI_END_DATE, ACTI_PRICE_TOTAL, 
+    ACTI_PRICE_PRE, ACTI_CREATOR, ACTI_CREATOR_ID, ACTI_CAPACITY, ACTI_APLY_TIME, ACTI_STATUS_CD, 
+    ACTI_ABS, ACTI_IMGS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imooc.demo.pojo.ActiInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ACTI_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACTI_INFO
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ACTI_INFO
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imooc.demo.pojo.ActiInfoExample" >
+    delete from ACTI_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imooc.demo.pojo.ActiInfo" >
+    insert into ACTI_INFO (ACTI_ID, ACTI_TITLE, ACTI_ADDR, 
+      ACTI_START_DATE, ACTI_END_DATE, ACTI_PRICE_TOTAL, 
+      ACTI_PRICE_PRE, ACTI_CREATOR, ACTI_CREATOR_ID, 
+      ACTI_CAPACITY, ACTI_APLY_TIME, ACTI_STATUS_CD, 
+      ACTI_ABS, ACTI_IMGS)
+    values (#{actiId,jdbcType=CHAR}, #{actiTitle,jdbcType=VARCHAR}, #{actiAddr,jdbcType=VARCHAR}, 
+      #{actiStartDate,jdbcType=CHAR}, #{actiEndDate,jdbcType=CHAR}, #{actiPriceTotal,jdbcType=INTEGER}, 
+      #{actiPricePre,jdbcType=INTEGER}, #{actiCreator,jdbcType=VARCHAR}, #{actiCreatorId,jdbcType=CHAR}, 
+      #{actiCapacity,jdbcType=INTEGER}, #{actiAplyTime,jdbcType=TIMESTAMP}, #{actiStatusCd,jdbcType=CHAR}, 
+      #{actiAbs,jdbcType=VARCHAR}, #{actiImgs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imooc.demo.pojo.ActiInfo" >
+    insert into ACTI_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actiId != null" >
+        ACTI_ID,
+      </if>
+      <if test="actiTitle != null" >
+        ACTI_TITLE,
+      </if>
+      <if test="actiAddr != null" >
+        ACTI_ADDR,
+      </if>
+      <if test="actiStartDate != null" >
+        ACTI_START_DATE,
+      </if>
+      <if test="actiEndDate != null" >
+        ACTI_END_DATE,
+      </if>
+      <if test="actiPriceTotal != null" >
+        ACTI_PRICE_TOTAL,
+      </if>
+      <if test="actiPricePre != null" >
+        ACTI_PRICE_PRE,
+      </if>
+      <if test="actiCreator != null" >
+        ACTI_CREATOR,
+      </if>
+      <if test="actiCreatorId != null" >
+        ACTI_CREATOR_ID,
+      </if>
+      <if test="actiCapacity != null" >
+        ACTI_CAPACITY,
+      </if>
+      <if test="actiAplyTime != null" >
+        ACTI_APLY_TIME,
+      </if>
+      <if test="actiStatusCd != null" >
+        ACTI_STATUS_CD,
+      </if>
+      <if test="actiAbs != null" >
+        ACTI_ABS,
+      </if>
+      <if test="actiImgs != null" >
+        ACTI_IMGS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actiId != null" >
+        #{actiId,jdbcType=CHAR},
+      </if>
+      <if test="actiTitle != null" >
+        #{actiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="actiAddr != null" >
+        #{actiAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="actiStartDate != null" >
+        #{actiStartDate,jdbcType=CHAR},
+      </if>
+      <if test="actiEndDate != null" >
+        #{actiEndDate,jdbcType=CHAR},
+      </if>
+      <if test="actiPriceTotal != null" >
+        #{actiPriceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="actiPricePre != null" >
+        #{actiPricePre,jdbcType=INTEGER},
+      </if>
+      <if test="actiCreator != null" >
+        #{actiCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="actiCreatorId != null" >
+        #{actiCreatorId,jdbcType=CHAR},
+      </if>
+      <if test="actiCapacity != null" >
+        #{actiCapacity,jdbcType=INTEGER},
+      </if>
+      <if test="actiAplyTime != null" >
+        #{actiAplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actiStatusCd != null" >
+        #{actiStatusCd,jdbcType=CHAR},
+      </if>
+      <if test="actiAbs != null" >
+        #{actiAbs,jdbcType=VARCHAR},
+      </if>
+      <if test="actiImgs != null" >
+        #{actiImgs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imooc.demo.pojo.ActiInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ACTI_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ACTI_INFO
+    <set >
+      <if test="record.actiId != null" >
+        ACTI_ID = #{record.actiId,jdbcType=CHAR},
+      </if>
+      <if test="record.actiTitle != null" >
+        ACTI_TITLE = #{record.actiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiAddr != null" >
+        ACTI_ADDR = #{record.actiAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiStartDate != null" >
+        ACTI_START_DATE = #{record.actiStartDate,jdbcType=CHAR},
+      </if>
+      <if test="record.actiEndDate != null" >
+        ACTI_END_DATE = #{record.actiEndDate,jdbcType=CHAR},
+      </if>
+      <if test="record.actiPriceTotal != null" >
+        ACTI_PRICE_TOTAL = #{record.actiPriceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.actiPricePre != null" >
+        ACTI_PRICE_PRE = #{record.actiPricePre,jdbcType=INTEGER},
+      </if>
+      <if test="record.actiCreator != null" >
+        ACTI_CREATOR = #{record.actiCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiCreatorId != null" >
+        ACTI_CREATOR_ID = #{record.actiCreatorId,jdbcType=CHAR},
+      </if>
+      <if test="record.actiCapacity != null" >
+        ACTI_CAPACITY = #{record.actiCapacity,jdbcType=INTEGER},
+      </if>
+      <if test="record.actiAplyTime != null" >
+        ACTI_APLY_TIME = #{record.actiAplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.actiStatusCd != null" >
+        ACTI_STATUS_CD = #{record.actiStatusCd,jdbcType=CHAR},
+      </if>
+      <if test="record.actiAbs != null" >
+        ACTI_ABS = #{record.actiAbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiImgs != null" >
+        ACTI_IMGS = #{record.actiImgs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ACTI_INFO
+    set ACTI_ID = #{record.actiId,jdbcType=CHAR},
+      ACTI_TITLE = #{record.actiTitle,jdbcType=VARCHAR},
+      ACTI_ADDR = #{record.actiAddr,jdbcType=VARCHAR},
+      ACTI_START_DATE = #{record.actiStartDate,jdbcType=CHAR},
+      ACTI_END_DATE = #{record.actiEndDate,jdbcType=CHAR},
+      ACTI_PRICE_TOTAL = #{record.actiPriceTotal,jdbcType=INTEGER},
+      ACTI_PRICE_PRE = #{record.actiPricePre,jdbcType=INTEGER},
+      ACTI_CREATOR = #{record.actiCreator,jdbcType=VARCHAR},
+      ACTI_CREATOR_ID = #{record.actiCreatorId,jdbcType=CHAR},
+      ACTI_CAPACITY = #{record.actiCapacity,jdbcType=INTEGER},
+      ACTI_APLY_TIME = #{record.actiAplyTime,jdbcType=TIMESTAMP},
+      ACTI_STATUS_CD = #{record.actiStatusCd,jdbcType=CHAR},
+      ACTI_ABS = #{record.actiAbs,jdbcType=VARCHAR},
+      ACTI_IMGS = #{record.actiImgs,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imooc.demo.pojo.ActiInfo" >
+    update ACTI_INFO
+    <set >
+      <if test="actiTitle != null" >
+        ACTI_TITLE = #{actiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="actiAddr != null" >
+        ACTI_ADDR = #{actiAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="actiStartDate != null" >
+        ACTI_START_DATE = #{actiStartDate,jdbcType=CHAR},
+      </if>
+      <if test="actiEndDate != null" >
+        ACTI_END_DATE = #{actiEndDate,jdbcType=CHAR},
+      </if>
+      <if test="actiPriceTotal != null" >
+        ACTI_PRICE_TOTAL = #{actiPriceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="actiPricePre != null" >
+        ACTI_PRICE_PRE = #{actiPricePre,jdbcType=INTEGER},
+      </if>
+      <if test="actiCreator != null" >
+        ACTI_CREATOR = #{actiCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="actiCreatorId != null" >
+        ACTI_CREATOR_ID = #{actiCreatorId,jdbcType=CHAR},
+      </if>
+      <if test="actiCapacity != null" >
+        ACTI_CAPACITY = #{actiCapacity,jdbcType=INTEGER},
+      </if>
+      <if test="actiAplyTime != null" >
+        ACTI_APLY_TIME = #{actiAplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actiStatusCd != null" >
+        ACTI_STATUS_CD = #{actiStatusCd,jdbcType=CHAR},
+      </if>
+      <if test="actiAbs != null" >
+        ACTI_ABS = #{actiAbs,jdbcType=VARCHAR},
+      </if>
+      <if test="actiImgs != null" >
+        ACTI_IMGS = #{actiImgs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imooc.demo.pojo.ActiInfo" >
+    update ACTI_INFO
+    set ACTI_TITLE = #{actiTitle,jdbcType=VARCHAR},
+      ACTI_ADDR = #{actiAddr,jdbcType=VARCHAR},
+      ACTI_START_DATE = #{actiStartDate,jdbcType=CHAR},
+      ACTI_END_DATE = #{actiEndDate,jdbcType=CHAR},
+      ACTI_PRICE_TOTAL = #{actiPriceTotal,jdbcType=INTEGER},
+      ACTI_PRICE_PRE = #{actiPricePre,jdbcType=INTEGER},
+      ACTI_CREATOR = #{actiCreator,jdbcType=VARCHAR},
+      ACTI_CREATOR_ID = #{actiCreatorId,jdbcType=CHAR},
+      ACTI_CAPACITY = #{actiCapacity,jdbcType=INTEGER},
+      ACTI_APLY_TIME = #{actiAplyTime,jdbcType=TIMESTAMP},
+      ACTI_STATUS_CD = #{actiStatusCd,jdbcType=CHAR},
+      ACTI_ABS = #{actiAbs,jdbcType=VARCHAR},
+      ACTI_IMGS = #{actiImgs,jdbcType=VARCHAR}
+    where ACTI_ID = #{actiId,jdbcType=CHAR}
+  </update>
+</mapper>
